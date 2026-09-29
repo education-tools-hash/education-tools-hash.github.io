@@ -57,14 +57,20 @@ jobs:
           mkdir -p dist/assets/js
 
           # --- Explicit allowlist: the 5 target apps for this Preview, and only the
-          # relative-path dependency they actually load (directions-app.html's
-          # assets/js/directions-record-detail.js). No wildcard/full-tree copy. ---
+          # relative-path dependencies they actually load. No wildcard/full-tree copy.
+          #   directions-app.html -> assets/js/directions-record-detail.js
+          #   timetable-app.html  -> favicon.png / favicon.svg / apple-touch-icon.png
+          #                          (relative <link> hrefs, no leading slash, so they
+          #                          resolve against this same directory) ---
           cp source/schedule-app.html      dist/
           cp source/timetable-app.html     dist/
           cp source/cup_game.html          dist/
           cp source/directions-app.html    dist/
           cp source/ongaku-app.html        dist/
           cp source/assets/js/directions-record-detail.js dist/assets/js/
+          cp source/favicon.png            dist/
+          cp source/favicon.svg            dist/
+          cp source/apple-touch-icon.png   dist/
 
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
@@ -85,7 +91,10 @@ jobs:
               "cup_game.html",
               "directions-app.html",
               "ongaku-app.html",
-              "assets/js/directions-record-detail.js"
+              "assets/js/directions-record-detail.js",
+              "favicon.png",
+              "favicon.svg",
+              "apple-touch-icon.png"
             ]
           }
           JSON
