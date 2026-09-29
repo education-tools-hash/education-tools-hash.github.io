@@ -1,0 +1,150 @@
+name: preview-sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Source commit SHA (recommended) or branch name in education-tools-hash/for-all-children-to-learn"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout source repo at source_ref (public, read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: education-tools-hash/for-all-children-to-learn
+          ref: ${{ inputs.source_ref }}
+          path: source
+          fetch-depth: 1
+
+      - name: Resolve and verify actual synced commit SHA
+        id: resolve
+        env:
+          SOURCE_REF: ${{ inputs.source_ref }}
+        run: |
+          set -euo pipefail
+          actual_sha=$(git -C source rev-parse HEAD)
+          echo "Resolved source_ref '$SOURCE_REF' -> $actual_sha"
+          if [[ "$SOURCE_REF" =~ ^[0-9a-f]{40}$ ]]; then
+            if [ "$SOURCE_REF" != "$actual_sha" ]; then
+              echo "::error::source_ref looked like a full SHA but does not match the checked-out commit (requested $SOURCE_REF, got $actual_sha). Refusing to deploy."
+              exit 1
+            fi
+          fi
+          {
+            echo "actual_sha=$actual_sha"
+            echo "synced_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build preview artifact (explicit allowlist only, source files copied unmodified)
+        run: |
+          set -euo pipefail
+          mkdir -p dist/assets/js
+
+          # --- Explicit allowlist: the 5 target apps for this Preview, and only the
+          # relative-path dependency they actually load (directions-app.html's
+          # assets/js/directions-record-detail.js). No wildcard/full-tree copy. ---
+          cp source/schedule-app.html      dist/
+          cp source/timetable-app.html     dist/
+          cp source/cup_game.html          dist/
+          cp source/directions-app.html    dist/
+          cp source/ongaku-app.html        dist/
+          cp source/assets/js/directions-record-detail.js dist/assets/js/
+
+      - name: Generate preview-manifest.json (Preview-only, not part of source)
+        env:
+          SOURCE_REF: ${{ inputs.source_ref }}
+          ACTUAL_SHA: ${{ steps.resolve.outputs.actual_sha }}
+          SYNCED_AT: ${{ steps.resolve.outputs.synced_at }}
+        run: |
+          set -euo pipefail
+          cat > dist/preview-manifest.json <<JSON
+          {
+            "sourceRepo": "education-tools-hash/for-all-children-to-learn",
+            "sourceRef": "$SOURCE_REF",
+            "sourceCommit": "$ACTUAL_SHA",
+            "syncedAt": "$SYNCED_AT",
+            "syncedFiles": [
+              "schedule-app.html",
+              "timetable-app.html",
+              "cup_game.html",
+              "directions-app.html",
+              "ongaku-app.html",
+              "assets/js/directions-record-detail.js"
+            ]
+          }
+          JSON
+
+      - name: Generate Preview index.html (Preview-only, not part of source)
+        env:
+          SOURCE_REF: ${{ inputs.source_ref }}
+          ACTUAL_SHA: ${{ steps.resolve.outputs.actual_sha }}
+          SYNCED_AT: ${{ steps.resolve.outputs.synced_at }}
+        run: |
+          set -euo pipefail
+          cat > dist/index.html <<HTML
+          <!doctype html>
+          <html lang="ja">
+          <head>
+          <meta charset="utf-8">
+          <title>DONOMANA PREVIEW</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style>
+            body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem;line-height:1.7;color:#1f2937}
+            .banner{background:#fff3cd;border:2px solid #d97706;border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-weight:bold;color:#92400e}
+            dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;margin:1rem 0}
+            dt{font-weight:bold;color:#6b7280} dd{margin:0}
+            code{background:#f1f5f9;padding:.15rem .4rem;border-radius:4px;word-break:break-all}
+            ul{padding-left:1.2rem;line-height:2}
+            a{color:#2563eb}
+          </style>
+          </head>
+          <body>
+          <div class="banner">&#9888; これはDONOMANA PREVIEW環境です。Production (donomana.jp) ではありません。</div>
+          <dl>
+            <dt>source repo</dt><dd><code>education-tools-hash/for-all-children-to-learn</code></dd>
+            <dt>source ref</dt><dd><code>$SOURCE_REF</code></dd>
+            <dt>source commit</dt><dd><code>$ACTUAL_SHA</code></dd>
+            <dt>synced at</dt><dd><code>$SYNCED_AT</code> (UTC)</dd>
+          </dl>
+          <ul>
+            <li><a href="schedule-app.html">schedule-app.html</a></li>
+            <li><a href="timetable-app.html">timetable-app.html</a></li>
+            <li><a href="cup_game.html">cup_game.html</a></li>
+            <li><a href="directions-app.html">directions-app.html</a></li>
+            <li><a href="ongaku-app.html">ongaku-app.html</a></li>
+          </ul>
+          <p><a href="preview-manifest.json">preview-manifest.json</a></p>
+          </body>
+          </html>
+          HTML
+
+      - name: Generate robots.txt (search engine exclusion, not secrecy)
+        run: printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
