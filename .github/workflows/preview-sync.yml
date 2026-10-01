@@ -67,7 +67,9 @@ jobs:
           cp source/cup_game.html          dist/
           cp source/directions-app.html    dist/
           cp source/ongaku-app.html        dist/
+          cp source/sst-app.html           dist/
           cp source/assets/js/directions-record-detail.js dist/assets/js/
+          cp source/assets/js/sst-record-detail.js        dist/assets/js/
           cp source/favicon.png            dist/
           cp source/favicon.svg            dist/
           cp source/apple-touch-icon.png   dist/
@@ -91,7 +93,9 @@ jobs:
               "cup_game.html",
               "directions-app.html",
               "ongaku-app.html",
+              "sst-app.html",
               "assets/js/directions-record-detail.js",
+              "assets/js/sst-record-detail.js",
               "favicon.png",
               "favicon.svg",
               "apple-touch-icon.png"
@@ -137,6 +141,7 @@ jobs:
             <li><a href="cup_game.html">cup_game.html</a></li>
             <li><a href="directions-app.html">directions-app.html</a></li>
             <li><a href="ongaku-app.html">ongaku-app.html</a></li>
+            <li><a href="sst-app.html">sst-app.html</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
