@@ -68,8 +68,11 @@ jobs:
           cp source/directions-app.html    dist/
           cp source/ongaku-app.html        dist/
           cp source/sst-app.html           dist/
+          cp source/learning-records.html  dist/
           cp source/assets/js/directions-record-detail.js dist/assets/js/
           cp source/assets/js/sst-record-detail.js        dist/assets/js/
+          cp source/assets/js/record-dashboard-foundation.js dist/assets/js/
+          cp source/assets/js/record-dashboard-ui.js         dist/assets/js/
           cp source/favicon.png            dist/
           cp source/favicon.svg            dist/
           cp source/apple-touch-icon.png   dist/
@@ -94,8 +97,11 @@ jobs:
               "directions-app.html",
               "ongaku-app.html",
               "sst-app.html",
+              "learning-records.html",
               "assets/js/directions-record-detail.js",
               "assets/js/sst-record-detail.js",
+              "assets/js/record-dashboard-foundation.js",
+              "assets/js/record-dashboard-ui.js",
               "favicon.png",
               "favicon.svg",
               "apple-touch-icon.png"
@@ -142,6 +148,7 @@ jobs:
             <li><a href="directions-app.html">directions-app.html</a></li>
             <li><a href="ongaku-app.html">ongaku-app.html</a></li>
             <li><a href="sst-app.html">sst-app.html</a></li>
+            <li><a href="learning-records.html">learning-records.html</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
