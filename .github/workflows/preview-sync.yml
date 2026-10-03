@@ -87,6 +87,7 @@ jobs:
           cp source/assets/sakana-tsuri/forest-stream.jpg      dist/assets/sakana-tsuri/
           cp source/assets/sakana-tsuri/red-white-fish.png     dist/assets/sakana-tsuri/
           cp source/assets/sakana-tsuri/spotted-fish.png       dist/assets/sakana-tsuri/
+          cp source/assets/js/sakana-tsuri-record-detail.js    dist/assets/js/
 
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
@@ -126,7 +127,8 @@ jobs:
               "assets/sakana-tsuri/pond-autumn.jpg",
               "assets/sakana-tsuri/forest-stream.jpg",
               "assets/sakana-tsuri/red-white-fish.png",
-              "assets/sakana-tsuri/spotted-fish.png"
+              "assets/sakana-tsuri/spotted-fish.png",
+              "assets/js/sakana-tsuri-record-detail.js"
             ]
           }
           JSON
