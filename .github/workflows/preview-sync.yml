@@ -79,6 +79,7 @@ jobs:
           cp source/sawatte-hirogaru-app.html                  dist/
           cp source/assets/js/record-trace-renderer.js         dist/assets/js/
           cp source/assets/js/sawatte-hirogaru-record-detail.js dist/assets/js/
+          cp source/sakana-tsuri.html                          dist/
 
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
@@ -110,7 +111,8 @@ jobs:
               "apple-touch-icon.png",
               "sawatte-hirogaru-app.html",
               "assets/js/record-trace-renderer.js",
-              "assets/js/sawatte-hirogaru-record-detail.js"
+              "assets/js/sawatte-hirogaru-record-detail.js",
+              "sakana-tsuri.html"
             ]
           }
           JSON
@@ -156,6 +158,7 @@ jobs:
             <li><a href="sst-app.html">sst-app.html</a></li>
             <li><a href="learning-records.html">learning-records.html</a></li>
             <li><a href="sawatte-hirogaru-app.html">sawatte-hirogaru-app.html</a></li>
+            <li><a href="sakana-tsuri.html">sakana-tsuri.html</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
