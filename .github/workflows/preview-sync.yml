@@ -54,7 +54,7 @@ jobs:
       - name: Build preview artifact (explicit allowlist only, source files copied unmodified)
         run: |
           set -euo pipefail
-          mkdir -p dist/assets/js dist/assets/sakana-tsuri
+          mkdir -p dist/assets/js dist/assets/sakana-tsuri dist/app-details dist/assets/icons dist/assets/mockups
 
           # --- Explicit allowlist: the 5 target apps for this Preview, and only the
           # relative-path dependencies they actually load. No wildcard/full-tree copy.
@@ -88,6 +88,45 @@ jobs:
           cp source/assets/sakana-tsuri/red-white-fish.png     dist/assets/sakana-tsuri/
           cp source/assets/sakana-tsuri/spotted-fish.png       dist/assets/sakana-tsuri/
           cp source/assets/js/sakana-tsuri-record-detail.js    dist/assets/js/
+
+          # SEO detail review: changed pages and directly linked related apps.
+          cp source/hiragana-learn.html dist/
+          cp source/nazori-app.html dist/
+          cp source/sugoroku-app.html dist/
+          cp source/katakana-app.html dist/
+          cp source/nazorin-print.html dist/
+          cp source/janken-app.html dist/
+          cp source/app-details/hiragana-learn-detail.html dist/app-details/
+          cp source/app-details/nazori-app-detail.html dist/app-details/
+          cp source/app-details/sst-app-detail.html dist/app-details/
+          cp source/app-details/sugoroku-app-detail.html dist/app-details/
+          cp source/app-details/katakana-app-detail.html dist/app-details/
+          cp source/app-details/nazorin-print-detail.html dist/app-details/
+          cp source/app-details/janken-app-detail.html dist/app-details/
+          cp source/assets/icons/hiragana-learn.png dist/assets/icons/
+          cp source/assets/mockups/hiragana-learn.png dist/assets/mockups/
+          cp source/assets/icons/nazori-app.png dist/assets/icons/
+          cp source/assets/mockups/nazori-app.png dist/assets/mockups/
+          cp source/assets/icons/sst-app.png dist/assets/icons/
+          cp source/assets/mockups/sst-app.png dist/assets/mockups/
+          cp source/assets/icons/sugoroku-app.png dist/assets/icons/
+          cp source/assets/mockups/sugoroku-app.png dist/assets/mockups/
+          cp source/assets/icons/katakana-app.png dist/assets/icons/
+          cp source/assets/mockups/katakana-app.png dist/assets/mockups/
+          cp source/assets/icons/nazorin-print.png dist/assets/icons/
+          cp source/assets/mockups/nazorin-print.png dist/assets/mockups/
+          cp source/assets/icons/janken-app.png dist/assets/icons/
+          cp source/assets/mockups/janken-app.png dist/assets/mockups/
+          cp source/assets/js/kana-record-detail.js dist/assets/js/
+          cp source/assets/js/kana-record-trace-renderer.js dist/assets/js/
+          cp source/assets/js/nazori-record-detail.js dist/assets/js/
+          cp source/assets/js/pwa-register.js dist/assets/js/
+          cp source/favicon-16.png dist/
+          cp source/favicon-32.png dist/
+          cp source/favicon.ico dist/
+          cp source/site.webmanifest dist/
+          cp source/app-intro.html dist/
+          cp source/switch-gaze-guide.html dist/
 
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
@@ -128,7 +167,44 @@ jobs:
               "assets/sakana-tsuri/forest-stream.jpg",
               "assets/sakana-tsuri/red-white-fish.png",
               "assets/sakana-tsuri/spotted-fish.png",
-              "assets/js/sakana-tsuri-record-detail.js"
+              "assets/js/sakana-tsuri-record-detail.js",
+              "hiragana-learn.html",
+              "nazori-app.html",
+              "sugoroku-app.html",
+              "katakana-app.html",
+              "nazorin-print.html",
+              "janken-app.html",
+              "app-details/hiragana-learn-detail.html",
+              "app-details/nazori-app-detail.html",
+              "app-details/sst-app-detail.html",
+              "app-details/sugoroku-app-detail.html",
+              "app-details/katakana-app-detail.html",
+              "app-details/nazorin-print-detail.html",
+              "app-details/janken-app-detail.html",
+              "assets/icons/hiragana-learn.png",
+              "assets/mockups/hiragana-learn.png",
+              "assets/icons/nazori-app.png",
+              "assets/mockups/nazori-app.png",
+              "assets/icons/sst-app.png",
+              "assets/mockups/sst-app.png",
+              "assets/icons/sugoroku-app.png",
+              "assets/mockups/sugoroku-app.png",
+              "assets/icons/katakana-app.png",
+              "assets/mockups/katakana-app.png",
+              "assets/icons/nazorin-print.png",
+              "assets/mockups/nazorin-print.png",
+              "assets/icons/janken-app.png",
+              "assets/mockups/janken-app.png",
+              "assets/js/kana-record-detail.js",
+              "assets/js/kana-record-trace-renderer.js",
+              "assets/js/nazori-record-detail.js",
+              "assets/js/pwa-register.js",
+              "favicon-16.png",
+              "favicon-32.png",
+              "favicon.ico",
+              "site.webmanifest",
+              "app-intro.html",
+              "switch-gaze-guide.html"
             ]
           }
           JSON
@@ -175,6 +251,10 @@ jobs:
             <li><a href="learning-records.html">learning-records.html</a></li>
             <li><a href="sawatte-hirogaru-app.html">sawatte-hirogaru-app.html</a></li>
             <li><a href="sakana-tsuri.html">sakana-tsuri.html</a></li>
+            <li><a href="app-details/hiragana-learn-detail.html">hiragana-learn SEO確認</a></li>
+            <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
+            <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
+            <li><a href="app-details/sugoroku-app-detail.html">sugoroku-app SEO確認</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
