@@ -128,6 +128,17 @@ jobs:
           cp source/app-intro.html dist/
           cp source/switch-gaze-guide.html dist/
 
+          # SEO clock/register review: copy app pages, detail pages, images, and record dependency.
+          cp source/tokei-app.html dist/
+          cp source/register-app.html dist/
+          cp source/app-details/tokei-app-detail.html dist/app-details/
+          cp source/app-details/register-app-detail.html dist/app-details/
+          cp source/assets/icons/tokei-app.png dist/assets/icons/
+          cp source/assets/mockups/tokei-app.png dist/assets/mockups/
+          cp source/assets/icons/register-app.png dist/assets/icons/
+          cp source/assets/mockups/register-app.png dist/assets/mockups/
+          cp source/assets/js/tokei-record-detail.js dist/assets/js/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -204,7 +215,16 @@ jobs:
               "favicon.ico",
               "site.webmanifest",
               "app-intro.html",
-              "switch-gaze-guide.html"
+              "switch-gaze-guide.html",
+              "tokei-app.html",
+              "register-app.html",
+              "app-details/tokei-app-detail.html",
+              "app-details/register-app-detail.html",
+              "assets/icons/tokei-app.png",
+              "assets/mockups/tokei-app.png",
+              "assets/icons/register-app.png",
+              "assets/mockups/register-app.png",
+              "assets/js/tokei-record-detail.js"
             ]
           }
           JSON
@@ -255,6 +275,8 @@ jobs:
             <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
             <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
             <li><a href="app-details/sugoroku-app-detail.html">sugoroku-app SEO確認</a></li>
+            <li><a href="app-details/tokei-app-detail.html">とけい SEO確認</a></li>
+            <li><a href="app-details/register-app-detail.html">はんばいかい レジ SEO確認</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
