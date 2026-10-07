@@ -139,6 +139,10 @@ jobs:
           cp source/assets/mockups/register-app.png dist/assets/mockups/
           cp source/assets/js/tokei-record-detail.js dist/assets/js/
 
+          # COMMON-A11Y-STRICT-CONTAINMENT-PILOT-WAVE-1 User Browser Review: okane-app.html
+          cp source/okane-app.html dist/
+          cp source/assets/js/okane-record-detail.js dist/assets/js/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -224,7 +228,9 @@ jobs:
               "assets/mockups/tokei-app.png",
               "assets/icons/register-app.png",
               "assets/mockups/register-app.png",
-              "assets/js/tokei-record-detail.js"
+              "assets/js/tokei-record-detail.js",
+              "okane-app.html",
+              "assets/js/okane-record-detail.js"
             ]
           }
           JSON
@@ -271,6 +277,7 @@ jobs:
             <li><a href="learning-records.html">learning-records.html</a></li>
             <li><a href="sawatte-hirogaru-app.html">sawatte-hirogaru-app.html</a></li>
             <li><a href="sakana-tsuri.html">sakana-tsuri.html</a></li>
+            <li><a href="okane-app.html">okane-app.html</a></li>
             <li><a href="app-details/hiragana-learn-detail.html">hiragana-learn SEO確認</a></li>
             <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
             <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
