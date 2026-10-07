@@ -143,6 +143,14 @@ jobs:
           cp source/okane-app.html dist/
           cp source/assets/js/okane-record-detail.js dist/assets/js/
 
+          # COMMON-A11Y-STRICT-CONTAINMENT-WAVE-2 User Browser Review: yomikaki-app.html /
+          # slideshow-sakusei.html. Both apps have zero relative dependencies beyond the
+          # favicon/manifest set already copied unconditionally above (verified by reading
+          # the source HTML: only root-relative /favicon*, /apple-touch-icon.png,
+          # /site.webmanifest hrefs), so no extra assets/js|icons|mockups copy is needed.
+          cp source/yomikaki-app.html dist/
+          cp source/slideshow-sakusei.html dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -230,7 +238,9 @@ jobs:
               "assets/mockups/register-app.png",
               "assets/js/tokei-record-detail.js",
               "okane-app.html",
-              "assets/js/okane-record-detail.js"
+              "assets/js/okane-record-detail.js",
+              "yomikaki-app.html",
+              "slideshow-sakusei.html"
             ]
           }
           JSON
@@ -278,6 +288,8 @@ jobs:
             <li><a href="sawatte-hirogaru-app.html">sawatte-hirogaru-app.html</a></li>
             <li><a href="sakana-tsuri.html">sakana-tsuri.html</a></li>
             <li><a href="okane-app.html">okane-app.html</a></li>
+            <li><a href="yomikaki-app.html">yomikaki-app.html</a></li>
+            <li><a href="slideshow-sakusei.html">slideshow-sakusei.html</a></li>
             <li><a href="app-details/hiragana-learn-detail.html">hiragana-learn SEO確認</a></li>
             <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
             <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
