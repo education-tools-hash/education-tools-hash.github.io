@@ -151,6 +151,16 @@ jobs:
           cp source/yomikaki-app.html dist/
           cp source/slideshow-sakusei.html dist/
 
+          # COMMON-A11Y-MODAL-COEXISTENCE-FIX-1-WAVE-A User Browser Review: shiritori2.html /
+          # bosai-app.html (the 2 of the Wave A 5 target apps not yet allowlisted; janken-app.html,
+          # tokei-app.html, ongaku-app.html are already allowlisted above). shiritori2.html loads
+          # one relative dependency (assets/js/shiritori2-record-detail.js); bosai-app.html has
+          # zero relative dependencies beyond the favicon/manifest set already copied
+          # unconditionally above (both verified by reading the Wave A checkpoint source HTML).
+          cp source/shiritori2.html dist/
+          cp source/assets/js/shiritori2-record-detail.js dist/assets/js/
+          cp source/bosai-app.html dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -240,7 +250,10 @@ jobs:
               "okane-app.html",
               "assets/js/okane-record-detail.js",
               "yomikaki-app.html",
-              "slideshow-sakusei.html"
+              "slideshow-sakusei.html",
+              "shiritori2.html",
+              "assets/js/shiritori2-record-detail.js",
+              "bosai-app.html"
             ]
           }
           JSON
@@ -290,6 +303,8 @@ jobs:
             <li><a href="okane-app.html">okane-app.html</a></li>
             <li><a href="yomikaki-app.html">yomikaki-app.html</a></li>
             <li><a href="slideshow-sakusei.html">slideshow-sakusei.html</a></li>
+            <li><a href="shiritori2.html">shiritori2.html</a></li>
+            <li><a href="bosai-app.html">bosai-app.html</a></li>
             <li><a href="app-details/hiragana-learn-detail.html">hiragana-learn SEO確認</a></li>
             <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
             <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
