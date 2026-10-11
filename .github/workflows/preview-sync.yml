@@ -161,6 +161,14 @@ jobs:
           cp source/assets/js/shiritori2-record-detail.js dist/assets/js/
           cp source/bosai-app.html dist/
 
+          # COMMON-A11Y-MATCHING-APP-STRICT-CONTAINMENT-FIX-1 User Browser Review:
+          # matching-app.html. Zero relative dependencies beyond the favicon/manifest set
+          # already copied unconditionally above (verified by reading the checkpoint source
+          # HTML: only root-relative /favicon*, /apple-touch-icon.png, /site.webmanifest,
+          # /learning-records.html hrefs; no app-specific assets/js record-detail renderer
+          # exists in source).
+          cp source/matching-app.html dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -253,7 +261,8 @@ jobs:
               "slideshow-sakusei.html",
               "shiritori2.html",
               "assets/js/shiritori2-record-detail.js",
-              "bosai-app.html"
+              "bosai-app.html",
+              "matching-app.html"
             ]
           }
           JSON
@@ -305,6 +314,7 @@ jobs:
             <li><a href="slideshow-sakusei.html">slideshow-sakusei.html</a></li>
             <li><a href="shiritori2.html">shiritori2.html</a></li>
             <li><a href="bosai-app.html">bosai-app.html</a></li>
+            <li><a href="matching-app.html">matching-app.html</a></li>
             <li><a href="app-details/hiragana-learn-detail.html">hiragana-learn SEO確認</a></li>
             <li><a href="app-details/nazori-app-detail.html">nazori-app SEO確認</a></li>
             <li><a href="app-details/sst-app-detail.html">sst-app SEO確認</a></li>
