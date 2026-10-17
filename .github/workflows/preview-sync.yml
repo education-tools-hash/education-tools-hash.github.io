@@ -91,6 +91,20 @@ jobs:
           cp source/assets/sakana-tsuri/spotted-fish.png       dist/assets/sakana-tsuri/
           cp source/assets/js/sakana-tsuri-record-detail.js    dist/assets/js/
 
+          # APP-DETAILS-VISUAL-ENHANCEMENT-FISHING-PREVIEW-D-2 User Browser Review:
+          # sakana-tsuri-detail.html (the 2-image screenshots[] gallery from Pilot D).
+          # Also adds assets/icons/sakana-tsuri.png: reading the detail page's source
+          # found it references this icon via <img class="app-icon-img"
+          # src="../assets/icons/sakana-tsuri.png">, which was not previously in this
+          # allowlist (sakana-tsuri.html itself never needed it; only its detail page
+          # does). All other sakana-tsuri-detail.html dependencies (favicon/manifest
+          # set, ../sakana-tsuri.html, ../app-intro.html, ../switch-gaze-guide.html,
+          # ../learning-records.html) are already covered by the copies above.
+          cp source/app-details/sakana-tsuri-detail.html             dist/app-details/
+          cp source/assets/mockups/sakana-tsuri-method-select.png    dist/assets/mockups/
+          cp source/assets/mockups/sakana-tsuri.png                  dist/assets/mockups/
+          cp source/assets/icons/sakana-tsuri.png                    dist/assets/icons/
+
           # SEO detail review: changed pages and directly linked related apps.
           cp source/hiragana-learn.html dist/
           cp source/nazori-app.html dist/
@@ -222,6 +236,10 @@ jobs:
               "assets/sakana-tsuri/red-white-fish.png",
               "assets/sakana-tsuri/spotted-fish.png",
               "assets/js/sakana-tsuri-record-detail.js",
+              "app-details/sakana-tsuri-detail.html",
+              "assets/mockups/sakana-tsuri-method-select.png",
+              "assets/mockups/sakana-tsuri.png",
+              "assets/icons/sakana-tsuri.png",
               "hiragana-learn.html",
               "nazori-app.html",
               "sugoroku-app.html",
@@ -324,6 +342,7 @@ jobs:
             <li><a href="sawatte-hirogaru-app.html">sawatte-hirogaru-app.html</a></li>
             <li><a href="app-details/sawatte-hirogaru-app-detail.html">sawatte-hirogaru-app SEO確認</a></li>
             <li><a href="sakana-tsuri.html">sakana-tsuri.html</a></li>
+            <li><a href="app-details/sakana-tsuri-detail.html">sakana-tsuri SEO確認</a></li>
             <li><a href="okane-app.html">okane-app.html</a></li>
             <li><a href="yomikaki-app.html">yomikaki-app.html</a></li>
             <li><a href="slideshow-sakusei.html">slideshow-sakusei.html</a></li>
