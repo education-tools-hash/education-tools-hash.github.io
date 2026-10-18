@@ -206,6 +206,15 @@ jobs:
           # no app-specific assets/js record-detail renderer exists in source).
           cp source/suji-manabou.html dist/
 
+          # DONOMANA-ACCESS-PHASE-2-FIXED-PREVIEW-1: Donomana Access(開発中、
+          # Phase 2 Core Input & Feedback)のiPad Safari / AbleNet Blue2実機確認用。
+          # donomana-access.htmlが参照する唯一の相対依存はassets/js/
+          # donomana-access-core.jsのみ(sourceのdonomana-access.htmlを直接読んで
+          # 確認済み、favicon/manifest等の<link>は無い)。テストファイル
+          # (tools/donomana-access-poc/配下)はPreview公開対象外。
+          cp source/donomana-access.html dist/
+          cp source/assets/js/donomana-access-core.js dist/assets/js/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -308,7 +317,9 @@ jobs:
               "assets/js/shiritori2-record-detail.js",
               "bosai-app.html",
               "matching-app.html",
-              "suji-manabou.html"
+              "suji-manabou.html",
+              "donomana-access.html",
+              "assets/js/donomana-access-core.js"
             ]
           }
           JSON
@@ -369,6 +380,7 @@ jobs:
             <li><a href="app-details/sugoroku-app-detail.html">sugoroku-app SEO確認</a></li>
             <li><a href="app-details/tokei-app-detail.html">とけい SEO確認</a></li>
             <li><a href="app-details/register-app-detail.html">はんばいかい レジ SEO確認</a></li>
+            <li><a href="donomana-access.html">donomana-access.html（開発中・iPad/Blue2実機確認用）</a></li>
           </ul>
           <p><a href="preview-manifest.json">preview-manifest.json</a></p>
           </body>
