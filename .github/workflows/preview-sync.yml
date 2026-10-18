@@ -125,6 +125,12 @@ jobs:
           cp source/assets/mockups/nazori-app.png dist/assets/mockups/
           cp source/assets/icons/sst-app.png dist/assets/icons/
           cp source/assets/mockups/sst-app.png dist/assets/mockups/
+          # APP-DETAILS-VISUAL-ENHANCEMENT-SST-PREVIEW-E-2: 2枚目のscreenshots[]
+          # エントリ(「4週間のふりかえり」画面、画面例・サンプルデータ)。
+          # sst-app.html/sst-app-detail.html/assets/icons/sst-app.png/既存の
+          # assets/mockups/sst-app.pngは既に別Phaseでallowlist済みのため、
+          # ここではPhase Eで新規追加された1ファイルのみを足す。
+          cp source/assets/mockups/sst-app-four-week-review.png dist/assets/mockups/
           cp source/assets/icons/sugoroku-app.png dist/assets/icons/
           cp source/assets/mockups/sugoroku-app.png dist/assets/mockups/
           cp source/assets/icons/katakana-app.png dist/assets/icons/
@@ -259,6 +265,7 @@ jobs:
               "assets/mockups/nazori-app.png",
               "assets/icons/sst-app.png",
               "assets/mockups/sst-app.png",
+              "assets/mockups/sst-app-four-week-review.png",
               "assets/icons/sugoroku-app.png",
               "assets/mockups/sugoroku-app.png",
               "assets/icons/katakana-app.png",
