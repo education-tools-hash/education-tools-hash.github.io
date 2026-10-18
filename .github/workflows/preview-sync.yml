@@ -121,6 +121,12 @@ jobs:
           cp source/app-details/janken-app-detail.html dist/app-details/
           cp source/assets/icons/hiragana-learn.png dist/assets/icons/
           cp source/assets/mockups/hiragana-learn.png dist/assets/mockups/
+          # APP-DETAILS-VISUAL-ENHANCEMENT-HIRAGANA-PREVIEW-F-2: 2枚目の
+          # screenshots[]エントリ(なぞりタブ、お手本ガイド付きcanvas)。
+          # hiragana-learn.html/hiragana-learn-detail.html/assets/icons/
+          # hiragana-learn.png/既存のassets/mockups/hiragana-learn.pngは既に
+          # 別Phaseでallowlist済みのため、Phase Fで新規追加された1ファイルのみ足す。
+          cp source/assets/mockups/hiragana-learn-trace.png dist/assets/mockups/
           cp source/assets/icons/nazori-app.png dist/assets/icons/
           cp source/assets/mockups/nazori-app.png dist/assets/mockups/
           cp source/assets/icons/sst-app.png dist/assets/icons/
@@ -261,6 +267,7 @@ jobs:
               "app-details/janken-app-detail.html",
               "assets/icons/hiragana-learn.png",
               "assets/mockups/hiragana-learn.png",
+              "assets/mockups/hiragana-learn-trace.png",
               "assets/icons/nazori-app.png",
               "assets/mockups/nazori-app.png",
               "assets/icons/sst-app.png",
