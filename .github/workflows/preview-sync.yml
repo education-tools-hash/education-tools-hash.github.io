@@ -215,6 +215,32 @@ jobs:
           cp source/donomana-access.html dist/
           cp source/assets/js/donomana-access-core.js dist/assets/js/
 
+          # DONOMANA-REGISTER-QR-PHASE-3-5B: register-app.html(はんばいかい レジ、SEO
+          # clock/register reviewで既にallowlist済み)のQR発行・カメラ読み取り機能が
+          # 読み込むベンダーライブラリ(qrcode-generator / jsQR)とそのライセンス表示。
+          # register-app.html自身のcp行(上のSEO clock/register reviewブロック)は無変更。
+          #
+          # 後方互換性: これらのファイルが存在しない過去のsource_ref(QRスキャナー機能
+          # 追加前のregister-app.html、あるいは無関係な他checkpoint)でもPreview Syncが
+          # 失敗しないよう、他の全cp行とは異なりこのブロックだけ「存在する場合のみ」
+          # コピーする。存在しない場合は無音でスキップし(cp自体を実行しないため
+          # `set -e`でのjob失敗にはならない)、manifestのsyncedFilesにも登録しない。
+          mkdir -p dist/assets/js/vendor/qrcode-generator dist/assets/js/vendor/jsqr
+          REGISTER_QR_VENDOR_FILES=""
+          if [ -f source/assets/js/vendor/qrcode-generator/qrcode.js ]; then
+            cp source/assets/js/vendor/qrcode-generator/qrcode.js   dist/assets/js/vendor/qrcode-generator/
+            cp source/assets/js/vendor/qrcode-generator/LICENSE.txt dist/assets/js/vendor/qrcode-generator/
+            cp source/assets/js/vendor/qrcode-generator/README.md   dist/assets/js/vendor/qrcode-generator/
+            REGISTER_QR_VENDOR_FILES="$REGISTER_QR_VENDOR_FILES,\"assets/js/vendor/qrcode-generator/qrcode.js\",\"assets/js/vendor/qrcode-generator/LICENSE.txt\",\"assets/js/vendor/qrcode-generator/README.md\""
+          fi
+          if [ -f source/assets/js/vendor/jsqr/jsQR.js ]; then
+            cp source/assets/js/vendor/jsqr/jsQR.js   dist/assets/js/vendor/jsqr/
+            cp source/assets/js/vendor/jsqr/LICENSE.txt dist/assets/js/vendor/jsqr/
+            cp source/assets/js/vendor/jsqr/README.md   dist/assets/js/vendor/jsqr/
+            REGISTER_QR_VENDOR_FILES="$REGISTER_QR_VENDOR_FILES,\"assets/js/vendor/jsqr/jsQR.js\",\"assets/js/vendor/jsqr/LICENSE.txt\",\"assets/js/vendor/jsqr/README.md\""
+          fi
+          echo "REGISTER_QR_VENDOR_FILES=$REGISTER_QR_VENDOR_FILES" >> "$GITHUB_ENV"
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -319,7 +345,7 @@ jobs:
               "matching-app.html",
               "suji-manabou.html",
               "donomana-access.html",
-              "assets/js/donomana-access-core.js"
+              "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES
             ]
           }
           JSON
