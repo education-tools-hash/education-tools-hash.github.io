@@ -241,6 +241,26 @@ jobs:
           fi
           echo "REGISTER_QR_VENDOR_FILES=$REGISTER_QR_VENDOR_FILES" >> "$GITHUB_ENV"
 
+          # DONOMANA-TOP-PAGE-RENEWAL-PHASE-D3-PREVIEW-ALLOWLIST-1: トップページ刷新
+          # (Phase D3、index.html/about.html/contact.htmlの3ファイル)のUser Browser
+          # Review用。index.html/about.htmlは本番repoに既存のファイルのため常時cp。
+          # contact.htmlはD3で新規作成されたファイルで、D3のcheckpointより前の
+          # source_ref(過去commitやD3未反映のmain)には存在しないため、上の
+          # REGISTER_QR_VENDOR_FILESと同じ「存在する場合のみ」コピー方式にする
+          # (存在しない場合は無音スキップ、`set -e`でのjob失敗にはならず、manifestの
+          # syncedFilesにも登録しない)。依存ファイル(favicon/apple-touch-icon/
+          # site.webmanifest/pwa-register.js)はいずれも既に上の各ブロックで許可リスト
+          # 済みのため追加コピーは不要(index.html/about.html/contact.htmlそれぞれの
+          # ソースを直接読んで確認済み)。
+          cp source/index.html dist/
+          cp source/about.html dist/
+          TOP_PAGE_RENEWAL_FILES=""
+          if [ -f source/contact.html ]; then
+            cp source/contact.html dist/
+            TOP_PAGE_RENEWAL_FILES=",\"contact.html\""
+          fi
+          echo "TOP_PAGE_RENEWAL_FILES=$TOP_PAGE_RENEWAL_FILES" >> "$GITHUB_ENV"
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -345,7 +365,9 @@ jobs:
               "matching-app.html",
               "suji-manabou.html",
               "donomana-access.html",
-              "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES
+              "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES,
+              "index.html",
+              "about.html"$TOP_PAGE_RENEWAL_FILES
             ]
           }
           JSON
