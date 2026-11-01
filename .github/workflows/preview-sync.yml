@@ -243,16 +243,22 @@ jobs:
 
           # DONOMANA-TOP-PAGE-RENEWAL-PHASE-D3-PREVIEW-ALLOWLIST-1: トップページ刷新
           # (Phase D3、index.html/about.html/contact.htmlの3ファイル)のUser Browser
-          # Review用。index.html/about.htmlは本番repoに既存のファイルのため常時cp。
-          # contact.htmlはD3で新規作成されたファイルで、D3のcheckpointより前の
-          # source_ref(過去commitやD3未反映のmain)には存在しないため、上の
-          # REGISTER_QR_VENDOR_FILESと同じ「存在する場合のみ」コピー方式にする
-          # (存在しない場合は無音スキップ、`set -e`でのjob失敗にはならず、manifestの
-          # syncedFilesにも登録しない)。依存ファイル(favicon/apple-touch-icon/
-          # site.webmanifest/pwa-register.js)はいずれも既に上の各ブロックで許可リスト
-          # 済みのため追加コピーは不要(index.html/about.html/contact.htmlそれぞれの
-          # ソースを直接読んで確認済み)。
-          cp source/index.html dist/
+          # Review用。about.html/contact.htmlは本番repoのそのままのファイル名でdist/直下へ
+          # 常時/条件付きcp。index.htmlは、dist/index.html自体が後段の
+          # 「Generate Preview index.html」ステップで常にPreview案内ページとして
+          # 上書き生成されるため(このworkflowの既存仕様、無変更)、同名でcpすると
+          # 後段の案内ページ生成に必ず上書きされ、D3の実ページが確認できなくなる
+          # (DONOMANA-TOP-PAGE-RENEWAL-PHASE-D3-PREVIEW-ALLOWLIST-FIX-1で発見された
+          # パス衝突)。そのため本番のindex.htmlは dist/top-page-preview.html という
+          # 別名でコピーする。dist/内の同一ディレクトリ内の相対リンク(about.html・
+          # switch-gaze-guide.html等)はファイル名を変えても解決先が変わらないため、
+          # この別名コピーだけでリンク構造は壊れない。Preview案内ページ自体
+          # (dist/index.html)は無変更で、Previewルートは引き続きDONOMANA PREVIEWを
+          # 名乗る。依存ファイル(favicon/apple-touch-icon/site.webmanifest/
+          # pwa-register.js)はいずれも既に上の各ブロックで許可リスト済みのため
+          # 追加コピーは不要(index.html/about.html/contact.htmlそれぞれのソースを
+          # 直接読んで確認済み)。
+          cp source/index.html dist/top-page-preview.html
           cp source/about.html dist/
           TOP_PAGE_RENEWAL_FILES=""
           if [ -f source/contact.html ]; then
@@ -366,7 +372,7 @@ jobs:
               "suji-manabou.html",
               "donomana-access.html",
               "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES,
-              "index.html",
+              "top-page-preview.html",
               "about.html"$TOP_PAGE_RENEWAL_FILES
             ]
           }
