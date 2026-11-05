@@ -267,6 +267,24 @@ jobs:
           fi
           echo "TOP_PAGE_RENEWAL_FILES=$TOP_PAGE_RENEWAL_FILES" >> "$GITHUB_ENV"
 
+          # DONOMANA-RINGO-POTTON-PREVIEW-ALLOWLIST-1: りんごポットン(ringo-potton-app.html、
+          # Phase 1)のiPad Safari実機確認用。アプリ本体の1ファイルのみ。参照している相対
+          # 依存はfavicon*/apple-touch-icon.png/site.webmanifestのルート相対hrefのみで、
+          # いずれも上の各ブロックで許可リスト済み(checkpoint bd6ad2aのソースHTMLを直接
+          # 読んで確認済み。音声ファイル・画像・外部ライブラリは持たない自己完結型)。
+          # 詳細ページ・アイコン・mockupは今回の対象外。
+          #
+          # 後方互換性: このファイルが存在しない過去のsource_ref(りんごポットン追加前の
+          # checkpoint)でもPreview Syncが失敗しないよう、他の大半のcp行とは異なり
+          # 「存在する場合のみ」コピーする(cp自体を実行しないため`set -e`でjob失敗に
+          # ならない)。存在しない場合はmanifestのsyncedFilesにも登録しない。
+          RINGO_POTTON_FILES=""
+          if [ -f source/ringo-potton-app.html ]; then
+            cp source/ringo-potton-app.html dist/
+            RINGO_POTTON_FILES=",\"ringo-potton-app.html\""
+          fi
+          echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -373,7 +391,7 @@ jobs:
               "donomana-access.html",
               "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES,
               "top-page-preview.html",
-              "about.html"$TOP_PAGE_RENEWAL_FILES
+              "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES
             ]
           }
           JSON
