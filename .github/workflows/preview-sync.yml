@@ -283,6 +283,33 @@ jobs:
             cp source/ringo-potton-app.html dist/
             RINGO_POTTON_FILES=",\"ringo-potton-app.html\""
           fi
+          # DONOMANA-RINGO-POTTON-VOICE-FILES-PREVIEW-ALLOWLIST-1: りんごポットンの依頼・お礼の
+          # 録音音声11本(assets/ringo-potton/voice/ringo-1..10.mp3, arigatou.mp3。本番repoの
+          # checkpoint d4825af5fd4373d7e5117711b9b1bca569914919 で追加)。ringo-potton-app.html は
+          # 相対パス assets/ringo-potton/voice/ で参照するため、dist/ でも同じ相対パスへ
+          # 1本ずつ明示的にコピーする(ワイルドカード・ディレクトリ一括コピーは使わない)。
+          # 上の「音声ファイルを持たない」という注記は Phase 1 時点の説明で、この checkpoint
+          # 以降は本ブロックが音声を扱う。
+          #
+          # 後方互換性: 音声を持たない過去の source_ref(d4825af より前の checkpoint)でも
+          # Preview Sync が失敗しないよう、ディレクトリが存在する場合のみコピーし、存在しない
+          # 場合は manifest にも登録しない。ディレクトリがあるのに11本のうち1本でも欠けていれば
+          # cp が失敗して job が止まる(黙って404のまま配信しない)。
+          if [ -d source/assets/ringo-potton/voice ]; then
+            mkdir -p dist/assets/ringo-potton/voice
+            cp source/assets/ringo-potton/voice/ringo-1.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-2.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-3.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-4.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-5.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-6.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-7.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-8.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-9.mp3   dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/ringo-10.mp3  dist/assets/ringo-potton/voice/
+            cp source/assets/ringo-potton/voice/arigatou.mp3  dist/assets/ringo-potton/voice/
+            RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-1.mp3\",\"assets/ringo-potton/voice/ringo-2.mp3\",\"assets/ringo-potton/voice/ringo-3.mp3\",\"assets/ringo-potton/voice/ringo-4.mp3\",\"assets/ringo-potton/voice/ringo-5.mp3\",\"assets/ringo-potton/voice/ringo-6.mp3\",\"assets/ringo-potton/voice/ringo-7.mp3\",\"assets/ringo-potton/voice/ringo-8.mp3\",\"assets/ringo-potton/voice/ringo-9.mp3\",\"assets/ringo-potton/voice/ringo-10.mp3\",\"assets/ringo-potton/voice/arigatou.mp3\""
+          fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
       - name: Generate preview-manifest.json (Preview-only, not part of source)
