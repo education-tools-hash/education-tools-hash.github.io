@@ -309,6 +309,16 @@ jobs:
             cp source/assets/ringo-potton/voice/ringo-10.mp3  dist/assets/ringo-potton/voice/
             cp source/assets/ringo-potton/voice/arigatou.mp3  dist/assets/ringo-potton/voice/
             RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-1.mp3\",\"assets/ringo-potton/voice/ringo-2.mp3\",\"assets/ringo-potton/voice/ringo-3.mp3\",\"assets/ringo-potton/voice/ringo-4.mp3\",\"assets/ringo-potton/voice/ringo-5.mp3\",\"assets/ringo-potton/voice/ringo-6.mp3\",\"assets/ringo-potton/voice/ringo-7.mp3\",\"assets/ringo-potton/voice/ringo-8.mp3\",\"assets/ringo-potton/voice/ringo-9.mp3\",\"assets/ringo-potton/voice/ringo-10.mp3\",\"assets/ringo-potton/voice/arigatou.mp3\""
+            # DONOMANA-RINGO-POTTON-REFUSAL-VOICE-PREVIEW-ALLOWLIST-1: ダミーモードのお断り音声1本
+            # (assets/ringo-potton/voice/okotowari.mp3。本番repoの checkpoint
+            # 53756c64265ee6572a798aba59e4b1d39271c2a5 で追加、C-2)。上の11本と同じ相対パスへ明示コピー。
+            # 後方互換性: このファイルを持たない過去の source_ref(53756c6 より前。音声11本だけの
+            # checkpoint を含む)でも Preview Sync が失敗しないよう、このファイルが存在する場合のみ
+            # コピーし、存在しない場合は manifest にも登録しない(上の11本の扱いは変えない)。
+            if [ -f source/assets/ringo-potton/voice/okotowari.mp3 ]; then
+              cp source/assets/ringo-potton/voice/okotowari.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/okotowari.mp3\""
+            fi
           fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
