@@ -344,6 +344,22 @@ jobs:
           fi
           echo "NIJI_FILES=$NIJI_FILES" >> "$GITHUB_ENV"
 
+          # DONOMANA-MINNA-DE-KAKERU-NIJI-PREVIEW-ALLOWLIST-2: 「みんなでかける虹」掲載の User Review で、
+          # ウィザード(3つの質問で探す)から虹へたどれることと、虹の詳細ページの「あわせて使える教材」
+          # のリンク先を Preview で確認するための既存ファイル3本。wizard.html は実行時に同じ階層の
+          # apps-data.json を fetch して候補を作るため、2本をそろえて同じ相対パスへ置く。
+          # app-details/drawing-app-detail.html は虹の詳細ページの「あわせて使える教材」のリンク先
+          # (もう1件の sugoroku-app-detail.html は既に上で許可リスト済み)。1本ずつ明示コピー。
+          #
+          # 常時コピーにしている理由: 3本とも 2026-04〜06 に追加されて以降一度も削除されておらず、
+          # 上で既に常時コピーしている最も新しいファイル(donomana-access.html 等、2026-10-19 の
+          # 7119bd5 で追加)より前から存在する。このため、現在このワークフローで同期できる source_ref
+          # には必ず3本とも含まれ、常時コピーにしても新しい失敗は生じない(既存ファイルの常時コピーの
+          # 慣例どおり)。
+          cp source/wizard.html                          dist/
+          cp source/apps-data.json                       dist/
+          cp source/app-details/drawing-app-detail.html  dist/app-details/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -450,7 +466,10 @@ jobs:
               "donomana-access.html",
               "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES,
               "top-page-preview.html",
-              "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES$NIJI_FILES
+              "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES$NIJI_FILES,
+              "wizard.html",
+              "apps-data.json",
+              "app-details/drawing-app-detail.html"
             ]
           }
           JSON
