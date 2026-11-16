@@ -322,6 +322,28 @@ jobs:
           fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
+          # DONOMANA-MINNA-DE-KAKERU-NIJI-PREVIEW-ALLOWLIST-1: 「みんなでかける虹」の掲載(本番repoの
+          # feature/minna-de-kakeru-niji-listing-1、checkpoint 3a99739b22ee04c678e6aa21792ce3ecdaa09eba)で
+          # 追加された3ファイル。アプリ本体は外部サイト(https://minna-de-kakeru-niji.web.app)にあり、
+          # どのまな側にあるのは生成された詳細ページと、その詳細ページが ../assets/ で参照する
+          # アイコン・トップ画像だけ。3ファイルを同じ相対パスへ1本ずつ明示的にコピーする
+          # (ワイルドカード・ディレクトリ一括コピーは使わない。dist/app-details・assets/icons・
+          # assets/mockups は冒頭の mkdir で作成済み)。
+          #
+          # 後方互換性: この3ファイルを持たない過去の source_ref(本番 main 0a3eda6 を含む、
+          # 虹の掲載より前の checkpoint)でも Preview Sync が失敗しないよう、詳細ページが存在する
+          # 場合のみコピーし、存在しない場合は manifest にも登録しない。詳細ページがあるのに
+          # アイコン・トップ画像のどちらかが欠けていれば cp が失敗して job が止まる(黙って404の
+          # まま配信しない)。
+          NIJI_FILES=""
+          if [ -f source/app-details/minna-de-kakeru-niji-detail.html ]; then
+            cp source/app-details/minna-de-kakeru-niji-detail.html dist/app-details/
+            cp source/assets/icons/minna-de-kakeru-niji.png        dist/assets/icons/
+            cp source/assets/mockups/minna-de-kakeru-niji.png      dist/assets/mockups/
+            NIJI_FILES=",\"app-details/minna-de-kakeru-niji-detail.html\",\"assets/icons/minna-de-kakeru-niji.png\",\"assets/mockups/minna-de-kakeru-niji.png\""
+          fi
+          echo "NIJI_FILES=$NIJI_FILES" >> "$GITHUB_ENV"
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -428,7 +450,7 @@ jobs:
               "donomana-access.html",
               "assets/js/donomana-access-core.js"$REGISTER_QR_VENDOR_FILES,
               "top-page-preview.html",
-              "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES
+              "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES$NIJI_FILES
             ]
           }
           JSON
