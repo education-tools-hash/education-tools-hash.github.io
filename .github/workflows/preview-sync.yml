@@ -360,6 +360,13 @@ jobs:
           cp source/apps-data.json                       dist/
           cp source/app-details/drawing-app-detail.html  dist/app-details/
 
+          # L2-ALT-BATCH-B1 (alt 対応バッチ B1) の User Review 用: B1 で変更した6教材のうち、未許可だった2本。
+          # time-timer.html(2026-05-18 追加)・drawing-app.html(2026-03-29 追加)はいずれも以降一度も削除
+          # されておらず、7119bd5(2026-10-18)より前から存在するため、上の3本と同じく常時コピーにする。
+          # どちらも外部 script を読み込まず、参照するのはサイト共通の /favicon* 等のみ。1本ずつ明示コピー。
+          cp source/time-timer.html                      dist/
+          cp source/drawing-app.html                     dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -469,7 +476,9 @@ jobs:
               "about.html"$TOP_PAGE_RENEWAL_FILES$RINGO_POTTON_FILES$NIJI_FILES,
               "wizard.html",
               "apps-data.json",
-              "app-details/drawing-app-detail.html"
+              "app-details/drawing-app-detail.html",
+              "time-timer.html",
+              "drawing-app.html"
             ]
           }
           JSON
