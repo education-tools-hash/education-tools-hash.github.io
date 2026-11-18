@@ -367,6 +367,12 @@ jobs:
           cp source/time-timer.html                      dist/
           cp source/drawing-app.html                     dist/
 
+          # L2-ALT-BATCH-B2 (alt 対応バッチ B2) の User Review 用: B2 で変更した kyou-no-kiroku.html。
+          # 2026-05-29 追加以降一度も削除されておらず、7119bd5(2026-10-18)より前から存在するため常時コピー。
+          # 外部 script・stylesheet は読み込まず、参照するローカルファイル(/favicon* 等、/site.webmanifest、
+          # /learning-records.html)はすべて既に上で許可リスト済みのため、追加するのはこの1本のみ。
+          cp source/kyou-no-kiroku.html                  dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -478,7 +484,8 @@ jobs:
               "apps-data.json",
               "app-details/drawing-app-detail.html",
               "time-timer.html",
-              "drawing-app.html"
+              "drawing-app.html",
+              "kyou-no-kiroku.html"
             ]
           }
           JSON
