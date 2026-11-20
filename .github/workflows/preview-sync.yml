@@ -379,6 +379,16 @@ jobs:
           # /learning-records.html)はすべて既に上で許可リスト済みのため、追加するのはこの1本のみ。
           cp source/mogura-tataki.html                   dist/
 
+          # SECURITY-XSS-PHASE3 (セキュリティ修正 第3弾) の User Review 用: 第3弾で変更したファイルのうち、未許可だった2本。
+          # dotchiga-ii-app.html(2026-08-19 追加)・app-register.html(2026-05-20 追加)はいずれも以降一度も削除されておらず、
+          # 7119bd5(2026-10-18)より前から存在するため常時コピー。どちらも外部 script は読み込まない。
+          # dotchiga-ii-app.html が参照するローカルファイル(/favicon* 等、/site.webmanifest、/learning-records.html)は
+          # すべて既に上で許可リスト済み。app-register.html はローカルファイルを参照しない(運用者ページ。入力欄の
+          # ghp_xxxx… は見本の文字列で、認証情報は含まない)。追加するのはこの2本のみ。1本ずつ明示コピー。
+          # 同じく第3弾で変更した sugoroku-online.html は未公開ページのため、これまでどおり追加しない。
+          cp source/dotchiga-ii-app.html                 dist/
+          cp source/app-register.html                    dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -492,7 +502,9 @@ jobs:
               "time-timer.html",
               "drawing-app.html",
               "kyou-no-kiroku.html",
-              "mogura-tataki.html"
+              "mogura-tataki.html",
+              "dotchiga-ii-app.html",
+              "app-register.html"
             ]
           }
           JSON
