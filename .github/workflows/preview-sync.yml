@@ -389,6 +389,12 @@ jobs:
           cp source/dotchiga-ii-app.html                 dist/
           cp source/app-register.html                    dist/
 
+          # HELP-SETTINGS-ROUTE-BATCH1 (❓の説明文の直し 第1弾) の User Review 用: 第1弾で変更した7教材のうち、未許可だった1本。
+          # kimochi-board.html は 2026-03-24 追加以降一度も削除されておらず、7119bd5(2026-10-18)より前から存在するため常時コピー。
+          # 外部 script・stylesheet は読み込まず、参照するローカルファイル(/favicon* 等、/site.webmanifest)は
+          # すべて既に上で許可リスト済みのため、追加するのはこの1本のみ。
+          cp source/kimochi-board.html                   dist/
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -504,7 +510,8 @@ jobs:
               "kyou-no-kiroku.html",
               "mogura-tataki.html",
               "dotchiga-ii-app.html",
-              "app-register.html"
+              "app-register.html",
+              "kimochi-board.html"
             ]
           }
           JSON
