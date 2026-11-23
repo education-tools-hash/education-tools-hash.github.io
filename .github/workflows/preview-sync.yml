@@ -395,6 +395,31 @@ jobs:
           # すべて既に上で許可リスト済みのため、追加するのはこの1本のみ。
           cp source/kimochi-board.html                   dist/
 
+          # DONOMANA-CASHLESS-PREVIEW-ALLOWLIST-1: キャッシュレス(cashless-app、Phase 1。本番repoの
+          # claude/cashless-app-research-design-zuiij8、checkpoint 8378df336c65765707628c8310f96a4533cc4c8a)の
+          # User Browser Review 用の新教材4ファイル。アプリ本体・生成された詳細ページと、その詳細ページが
+          # ../assets/ で参照するアイコン・トップ画像。同じ相対パスへ1本ずつ明示的にコピーする(ワイルドカード・
+          # ディレクトリ一括コピーは使わない。dist/app-details・assets/icons・assets/mockups は冒頭の mkdir で
+          # 作成済み)。2本のHTMLが参照するほかのローカルファイル(/favicon* 等、/site.webmanifest、
+          # learning-records.html、app-intro.html、switch-gaze-guide.html)はすべて既に上で許可リスト済み
+          # (checkpoint のソースHTMLを直接読んで確認済み。外部 script・stylesheet は読み込まない)。
+          # 詳細ページの「関連する教材」から app-details/okane-app-detail.html へのリンクは、ユーザー決定
+          # (2026-11-24、案1)により許可リストに加えず、Preview ではリンク切れのままとする(本番では公開済み)。
+          #
+          # 後方互換性: この4ファイルを持たない過去の source_ref(本番 main dd18819 を含む、キャッシュレス追加前の
+          # checkpoint)でも Preview Sync が失敗しないよう、アプリ本体が存在する場合のみコピーし、存在しない場合は
+          # manifest にも登録しない。アプリ本体があるのに残り3本のどれかが欠けていれば cp が失敗して job が止まる
+          # (黙って404のまま配信しない)。
+          CASHLESS_FILES=""
+          if [ -f source/cashless-app.html ]; then
+            cp source/cashless-app.html                        dist/
+            cp source/app-details/cashless-app-detail.html     dist/app-details/
+            cp source/assets/icons/cashless-app.png            dist/assets/icons/
+            cp source/assets/mockups/cashless-app.png          dist/assets/mockups/
+            CASHLESS_FILES=",\"cashless-app.html\",\"app-details/cashless-app-detail.html\",\"assets/icons/cashless-app.png\",\"assets/mockups/cashless-app.png\""
+          fi
+          echo "CASHLESS_FILES=$CASHLESS_FILES" >> "$GITHUB_ENV"
+
       - name: Generate preview-manifest.json (Preview-only, not part of source)
         env:
           SOURCE_REF: ${{ inputs.source_ref }}
@@ -511,7 +536,7 @@ jobs:
               "mogura-tataki.html",
               "dotchiga-ii-app.html",
               "app-register.html",
-              "kimochi-board.html"
+              "kimochi-board.html"$CASHLESS_FILES
             ]
           }
           JSON
