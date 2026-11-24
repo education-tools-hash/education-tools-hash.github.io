@@ -319,6 +319,53 @@ jobs:
               cp source/assets/ringo-potton/voice/okotowari.mp3 dist/assets/ringo-potton/voice/
               RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/okotowari.mp3\""
             fi
+            # DONOMANA-RINGO-POTTON-LEVEL-UP-VOICE-PREVIEW-ALLOWLIST-1: レベルアップ「おおめから ぴったり」
+            # 専用の依頼音声10本(assets/ringo-potton/voice/ringo-b-1..10.mp3。本番repoの checkpoint
+            # bbe0c24b379638061d99021b72be39d8c97a874f で追加)。上の音声と同じ相対パスへ1本ずつ明示コピー
+            # (ワイルドカード・ディレクトリ一括コピーは使わない)。
+            # 後方互換性: この10本を持たない過去の source_ref(bbe0c24 より前。本番 main を含む)でも
+            # Preview Sync が失敗しないよう、okotowari.mp3 と同じく、それぞれのファイルが存在する場合のみ
+            # コピーし、存在しない場合は manifest にも登録しない(上の12本の扱いは変えない)。
+            if [ -f source/assets/ringo-potton/voice/ringo-b-1.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-1.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-1.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-2.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-2.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-2.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-3.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-3.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-3.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-4.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-4.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-4.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-5.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-5.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-5.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-6.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-6.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-6.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-7.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-7.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-7.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-8.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-8.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-8.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-9.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-9.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-9.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/ringo-b-10.mp3 ]; then
+              cp source/assets/ringo-potton/voice/ringo-b-10.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-10.mp3\""
+            fi
           fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
