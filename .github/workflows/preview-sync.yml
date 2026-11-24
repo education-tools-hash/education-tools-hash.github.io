@@ -663,6 +663,12 @@ jobs:
         with:
           path: dist
 
+      # アップロード直後は、成果物(github-pages)が一覧にまだ出ないことがあり、その場合
+      # deploy-pages が "Found 0 artifact(s)" で失敗する(run #111・#113・#114 で確認。
+      # 失敗後に照会すると成果物は存在していた)。一覧に出るのを待ってからデプロイする。
+      - name: Wait for the Pages artifact to be listed
+        run: sleep 30
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
