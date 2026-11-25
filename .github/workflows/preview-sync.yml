@@ -366,6 +366,73 @@ jobs:
               cp source/assets/ringo-potton/voice/ringo-b-10.mp3 dist/assets/ringo-potton/voice/
               RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/ringo-b-10.mp3\""
             fi
+            # DONOMANA-RINGO-POTTON-LEVEL-UP-A-VOICE-PREVIEW-ALLOWLIST-1: レベルアップ「くだものを 2 しゅるい」の
+            # 依頼音声15本(assets/ringo-potton/voice/a-banana-1..5.mp3, a-mikan-1..5.mp3, a-mikan-last-1..5.mp3。
+            # 本番repoの checkpoint ced44ac31eba6cea2c09bbef78b0ced66aa862f5 のブランチで追加)。上の音声と同じ
+            # 相対パスへ1本ずつ明示コピー(ワイルドカード・ディレクトリ一括コピーは使わない)。
+            # 後方互換性: この15本を持たない source_ref(本番 main を含む)でも Preview Sync が失敗しないよう、
+            # ringo-b の10本と同じく、それぞれのファイルが存在する場合のみコピーし、存在しない場合は manifest にも
+            # 登録しない(上の22本の扱いは変えない)。
+            if [ -f source/assets/ringo-potton/voice/a-banana-1.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-banana-1.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-banana-1.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-banana-2.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-banana-2.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-banana-2.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-banana-3.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-banana-3.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-banana-3.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-banana-4.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-banana-4.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-banana-4.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-banana-5.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-banana-5.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-banana-5.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-1.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-1.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-1.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-2.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-2.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-2.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-3.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-3.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-3.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-4.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-4.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-4.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-5.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-5.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-5.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-last-1.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-last-1.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-last-1.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-last-2.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-last-2.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-last-2.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-last-3.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-last-3.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-last-3.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-last-4.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-last-4.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-last-4.mp3\""
+            fi
+            if [ -f source/assets/ringo-potton/voice/a-mikan-last-5.mp3 ]; then
+              cp source/assets/ringo-potton/voice/a-mikan-last-5.mp3 dist/assets/ringo-potton/voice/
+              RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-last-5.mp3\""
+            fi
           fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
