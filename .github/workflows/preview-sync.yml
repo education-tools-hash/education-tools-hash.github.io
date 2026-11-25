@@ -461,6 +461,27 @@ jobs:
               RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/ringo-potton/voice/a-mikan-pittari-5.mp3\""
             fi
           fi
+          # DONOMANA-RINGO-POTTON-DETAIL-PREVIEW-ALLOWLIST-1: りんごポットンの詳細ページと、その詳細ページ・
+          # トップページのカードが参照する画像2つ(app-details/ringo-potton-app-detail.html、
+          # assets/icons/ringo-potton-app.png、assets/mockups/ringo-potton-app.png。説明文の追記の checkpoint
+          # 07f75b68754f16196469de6fd0469b7231a29a8c のレビュー用)。3ファイルを同じ相対パスへ1つずつ明示コピー
+          # (ワイルドカード・ディレクトリ一括コピーは使わない。dist/app-details・assets/icons・assets/mockups は
+          # 冒頭の mkdir で作成済み)。上の「詳細ページ・アイコン・mockupは今回の対象外」という注記は Phase 1
+          # 時点の説明で、以降は本ブロックがこの3つを扱う。
+          # 後方互換性: これらを持たない source_ref でも Preview Sync が失敗しないよう、音声と同じく、
+          # それぞれのファイルが存在する場合のみコピーし、存在しない場合は manifest にも登録しない。
+          if [ -f source/app-details/ringo-potton-app-detail.html ]; then
+            cp source/app-details/ringo-potton-app-detail.html dist/app-details/
+            RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"app-details/ringo-potton-app-detail.html\""
+          fi
+          if [ -f source/assets/icons/ringo-potton-app.png ]; then
+            cp source/assets/icons/ringo-potton-app.png dist/assets/icons/
+            RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/icons/ringo-potton-app.png\""
+          fi
+          if [ -f source/assets/mockups/ringo-potton-app.png ]; then
+            cp source/assets/mockups/ringo-potton-app.png dist/assets/mockups/
+            RINGO_POTTON_FILES="$RINGO_POTTON_FILES,\"assets/mockups/ringo-potton-app.png\""
+          fi
           echo "RINGO_POTTON_FILES=$RINGO_POTTON_FILES" >> "$GITHUB_ENV"
 
           # DONOMANA-MINNA-DE-KAKERU-NIJI-PREVIEW-ALLOWLIST-1: 「みんなでかける虹」の掲載(本番repoの
